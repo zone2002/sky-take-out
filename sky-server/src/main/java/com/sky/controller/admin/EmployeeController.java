@@ -105,6 +105,20 @@ public class EmployeeController {
         return Result.success(pageResult);
     }
 
+    /**
+     * 启用禁用员工账号
+     * @param status 当前状态
+     * @param id    要操作的id
+     * @return      统一返回结果
+     */
+    @PostMapping("/status/{status}")
+    @ApiOperation("启用禁用员工账号")
+    public Result<Void> startOrStop(@PathVariable Integer status, Long id){
+        log.info("启用禁用员工账号：{},{}",status,id);
+        employeeService.startOrStop(status, id);
+        return Result.success();
+    }
+
 
 
 }

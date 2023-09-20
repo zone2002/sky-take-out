@@ -6,6 +6,7 @@ import com.sky.entity.Employee;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface EmployeeMapper {
@@ -29,4 +30,9 @@ public interface EmployeeMapper {
 
     Page<Employee> findByPage(EmployeePageQueryDTO employeePageQueryDTO);
 
+    /**
+     * 根据主键动态修改属性
+     * @param employee 要操作的用户
+     */
+    void update(Employee employee);
 }
