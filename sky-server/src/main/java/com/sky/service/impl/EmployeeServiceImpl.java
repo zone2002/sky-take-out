@@ -115,7 +115,6 @@ public class EmployeeServiceImpl implements EmployeeService {
      */
     @Override
     public void startOrStop(Integer status, Long id) {
-        status = status.equals(0)?1:0;
 
         Employee employee = Employee.builder()
                 .id(id)

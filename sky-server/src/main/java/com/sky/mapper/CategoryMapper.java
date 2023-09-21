@@ -1,7 +1,6 @@
 package com.sky.mapper;
 
 import com.github.pagehelper.Page;
-import com.sky.enumeration.OperationType;
 import com.sky.dto.CategoryPageQueryDTO;
 import com.sky.entity.Category;
 import org.apache.ibatis.annotations.Delete;
@@ -14,7 +13,7 @@ public interface CategoryMapper {
 
     /**
      * 插入数据
-     * @param category
+     * @param category 分裂数据
      */
     @Insert("insert into category(type, name, sort, status, create_time, update_time, create_user, update_user)" +
             " VALUES" +
@@ -23,28 +22,28 @@ public interface CategoryMapper {
 
     /**
      * 分页查询
-     * @param categoryPageQueryDTO
-     * @return
+     * @param categoryPageQueryDTO 分类查询DTO
+     * @return 查询到的结果
      */
     Page<Category> pageQuery(CategoryPageQueryDTO categoryPageQueryDTO);
 
     /**
      * 根据id删除分类
-     * @param id
+     * @param id 要删除物品的id
      */
     @Delete("delete from category where id = #{id}")
     void deleteById(Long id);
 
     /**
      * 根据id修改分类
-     * @param category
+     * @param category 分类
      */
     void update(Category category);
 
     /**
      * 根据类型查询分类
-     * @param type
-     * @return
+     * @param type 类别
+     * @return 查询到的数据
      */
     List<Category> list(Integer type);
 }
