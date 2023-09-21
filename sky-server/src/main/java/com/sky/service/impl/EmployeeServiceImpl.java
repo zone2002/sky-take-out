@@ -98,10 +98,12 @@ public class EmployeeServiceImpl implements EmployeeService {
      */
     @Override
     public PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO) {
+
         PageHelper.startPage(employeePageQueryDTO.getPage(), employeePageQueryDTO.getPageSize());
 
         // 执行查询操作，这里假设你的实体类为Employee，通过repository查询
         Page<Employee> employeePage = employeeMapper.findByPage(employeePageQueryDTO);
+
 
         return new PageResult(employeePage.getTotal(), employeePage.getResult());
     }
@@ -113,11 +115,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      */
     @Override
     public void startOrStop(Integer status, Long id) {
-        if(status.equals(0)){
-            status = 1;
-        }else{
-            status = 0;
-        }
+        status = status.equals(0)?1:0;
 
         Employee employee = Employee.builder()
                 .id(id)
@@ -127,6 +125,32 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .build();
 
         employeeMapper.update(employee);
+    }
+
+
+    /**
+     * 编辑员工
+     * @param employeeDTO 员工DTO
+     */
+    @Override
+    public void update(EmployeeDTO employeeDTO) {
+        Employee employee = new Employee();
+        BeanUtils.copyProperties(employeeDTO, employee);
+        employee.setUpdateTime(LocalDateTime.now());
+        employee.setUpdateUser(BaseContext.getCurrentId());
+        employeeMapper.update(employee);
+    }
+
+    /**
+     * 根据id查找员工
+     * @param id 要查找的员工id
+     * @return 找到的员工
+     */
+    @Override
+    public Employee getById(Long id) {
+        Employee employee = employeeMapper.getById(id);
+        employee.setPassword("******");
+        return employee;
     }
 
 }
