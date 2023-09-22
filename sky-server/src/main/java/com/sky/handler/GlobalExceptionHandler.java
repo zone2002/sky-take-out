@@ -1,5 +1,6 @@
 package com.sky.handler;
 
+import com.aliyuncs.exceptions.ClientException;
 import com.sky.constant.MessageConstant;
 import com.sky.exception.BaseException;
 import com.sky.result.Result;
@@ -15,6 +16,17 @@ import java.sql.SQLException;
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
+
+    /**
+     * 捕获阿里云服务异常
+     * @param ex 阿里云服务异常
+     * @return 错误信息
+     */
+    @ExceptionHandler
+    public Result<Void> execeptionHandler(ClientException ex){
+        log.info("异常信息:{}", ex.getMessage());
+        return Result.error(ex.getMessage());
+    }
 
     /**
      * 捕获业务异常
@@ -38,8 +50,9 @@ public class GlobalExceptionHandler {
         String message = ex.getMessage();
 
         //Duplicate entry 'zhangsan' for key 'employee.idx_username'
-        //用户名重复
+        //重复
         if(message.contains("Duplicate entry")){
+            log.info("异常信息:{}", ex.getMessage());
             String[] split = message.split(" ");
             String username = split[2];
             String msg = username + MessageConstant.ALREADY_EXISTS;

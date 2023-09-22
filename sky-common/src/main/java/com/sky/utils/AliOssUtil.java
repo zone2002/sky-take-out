@@ -4,6 +4,8 @@ import com.aliyun.oss.ClientException;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.OSSException;
+import com.aliyun.oss.common.auth.CredentialsProviderFactory;
+import com.aliyun.oss.common.auth.EnvironmentVariableCredentialsProvider;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -15,21 +17,22 @@ import java.io.ByteArrayInputStream;
 public class AliOssUtil {
 
     private String endpoint;
-    private String accessKeyId;
-    private String accessKeySecret;
     private String bucketName;
 
     /**
      * 文件上传
      *
-     * @param bytes
-     * @param objectName
-     * @return
+     * @param bytes bytes 代表文件内容的字节数组。
+     * @param objectName 上传对象时使用的名称。
+     * @return 上传文件url
      */
-    public String upload(byte[] bytes, String objectName) {
+    public String upload(byte[] bytes, String objectName) throws com.aliyuncs.exceptions.ClientException {
+
+        // 从环境变量中获取访问凭证。运行本代码示例之前，请确保已设置环境变量OSS_ACCESS_KEY_ID和OSS_ACCESS_KEY_SECRET。
+        EnvironmentVariableCredentialsProvider credentialsProvider = CredentialsProviderFactory.newEnvironmentVariableCredentialsProvider();
 
         // 创建OSSClient实例。
-        OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
+        OSS ossClient = new OSSClientBuilder().build(endpoint, credentialsProvider);
 
         try {
             // 创建PutObject请求。
@@ -61,7 +64,7 @@ public class AliOssUtil {
                 .append("/")
                 .append(objectName);
 
-        log.info("文件上传到:{}", stringBuilder.toString());
+        log.info("文件上传到:{}", stringBuilder);
 
         return stringBuilder.toString();
     }

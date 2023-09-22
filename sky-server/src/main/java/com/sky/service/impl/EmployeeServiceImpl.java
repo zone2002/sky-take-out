@@ -79,9 +79,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setPassword(PasswordConstant.DEFAULT_PASSWORD);
         employee.setStatus(StatusConstant.ENABLE);
 
-        //设置当前记录创建人id和修改人id
+        //设置当前记录创建人id
         employee.setCreateUser(BaseContext.getCurrentId());
-        employee.setUpdateUser(BaseContext.getCurrentId());
 
         //持久层将数据插入数据库
         employeeMapper.addEmp(employee);
