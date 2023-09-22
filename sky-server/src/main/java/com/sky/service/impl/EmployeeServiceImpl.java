@@ -20,7 +20,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Service
@@ -79,8 +78,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         BeanUtils.copyProperties(employeeDTO, employee);
         employee.setPassword(PasswordConstant.DEFAULT_PASSWORD);
         employee.setStatus(StatusConstant.ENABLE);
-        employee.setCreateTime(LocalDateTime.now());
-        employee.setUpdateTime(LocalDateTime.now());
 
         //设置当前记录创建人id和修改人id
         employee.setCreateUser(BaseContext.getCurrentId());
@@ -115,8 +112,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = Employee.builder()
                 .id(id)
                 .status(status)
-                .updateTime(LocalDateTime.now())
-                .updateUser(BaseContext.getCurrentId())
                 .build();
 
         employeeMapper.update(employee);
@@ -131,8 +126,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void update(EmployeeDTO employeeDTO) {
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDTO, employee);
-        employee.setUpdateTime(LocalDateTime.now());
-        employee.setUpdateUser(BaseContext.getCurrentId());
         employeeMapper.update(employee);
     }
 

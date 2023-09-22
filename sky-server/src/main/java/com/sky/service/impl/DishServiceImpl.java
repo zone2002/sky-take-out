@@ -2,7 +2,6 @@ package com.sky.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.sky.context.BaseContext;
 import com.sky.dto.DishPageQueryDTO;
 import com.sky.entity.Dish;
 import com.sky.mapper.DishMapper;
@@ -42,8 +41,6 @@ public class DishServiceImpl implements DishService {
         Dish dish = Dish.builder()
                 .status(status)
                 .id(id)
-                .updateTime(LocalDateTime.now())
-                .updateUser(BaseContext.getCurrentId())
                 .build();
 
         dishMapper.update(dish);

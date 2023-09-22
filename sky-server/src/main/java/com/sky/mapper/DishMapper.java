@@ -1,8 +1,10 @@
 package com.sky.mapper;
 
 import com.github.pagehelper.Page;
+import com.sky.annotation.AutoFill;
 import com.sky.dto.DishPageQueryDTO;
 import com.sky.entity.Dish;
+import com.sky.enumeration.OperationType;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -28,5 +30,6 @@ public interface DishMapper {
      * 更新
      * @param dish 更新的数据对象
      */
+    @AutoFill(value = OperationType.UPDATE)
     void update(Dish dish);
 }
