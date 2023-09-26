@@ -4,6 +4,7 @@ package com.sky.constant;
  * 信息提示常量类
  */
 public class MessageConstant {
+    public static final String STATUS_NOT_FIND = "状态查询失败!";
     public static final String OTHER_ERROR = "其他错误";
     public static final String NOT_FIND_FILE = "没找到文件";
     public static final String ALREADY_EXISTS = "已存在";
