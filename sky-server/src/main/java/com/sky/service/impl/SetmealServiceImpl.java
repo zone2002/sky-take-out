@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * 套餐业务实现
@@ -113,6 +114,11 @@ public class SetmealServiceImpl implements SetmealService {
      * @param id 套餐id
      */
     public void startOrStop(Integer status, Long id){
+        Setmeal setmeal = Setmeal.builder()
+                .status(status)
+                .id(id)
+                .build();
 
+        setmealMapper.update(setmeal);
     }
 }
