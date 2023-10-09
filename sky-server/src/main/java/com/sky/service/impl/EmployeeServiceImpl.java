@@ -76,7 +76,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         //生成要插入的用户对象，并填入适当数据
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDTO, employee);
-        employee.setPassword(PasswordConstant.DEFAULT_PASSWORD);
+
+        //使用md5加密
+        employee.setPassword(DigestUtils.md5DigestAsHex((PasswordConstant.DEFAULT_PASSWORD).getBytes()));
+
         employee.setStatus(StatusConstant.ENABLE);
 
         //设置当前记录创建人id

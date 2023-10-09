@@ -35,6 +35,7 @@ public class DishServiceImpl implements DishService {
         this.setmealDishMapper = setmealDishMapper;
     }
 
+
     /**
      * 分页查询
      * @param dishPageQueryDTO 分页查询DTO
@@ -42,6 +43,7 @@ public class DishServiceImpl implements DishService {
      */
     @Override
     public PageResult pageQurey(DishPageQueryDTO dishPageQueryDTO) {
+        //todo: 后期封装为函数，参考ruoyi
         PageHelper.startPage(dishPageQueryDTO.getPage(), dishPageQueryDTO.getPageSize());
         Page<Dish> pageResult = dishMapper.findByPage(dishPageQueryDTO);
         return new PageResult(pageResult.getTotal(), pageResult.getResult());
@@ -130,7 +132,7 @@ public class DishServiceImpl implements DishService {
         Dish dish = dishMapper.getById(id);
 
         //根据菜品id查询口味数据
-        List<DishFlavor> dishFlavors = dishFlavorMapper.getByDishId(id);//后绪步骤实现
+        List<DishFlavor> dishFlavors = dishFlavorMapper.getByDishId(id);
 
         //将查询到的数据封装到VO
         DishVO dishVO = new DishVO();
