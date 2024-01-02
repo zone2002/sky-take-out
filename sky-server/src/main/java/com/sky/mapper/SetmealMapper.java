@@ -60,4 +60,12 @@ public interface SetmealMapper {
      */
     @AutoFill(OperationType.UPDATE)
     void update(Setmeal setmeal);
+
+    /**
+     * 根据ID获得菜单
+     * @param setmealId 菜单ID
+     * @return 对应菜单那
+     */
+    @Select("select * from setmeal where id = #{setmealId}")
+    Setmeal getById(Long setmealId);
 }

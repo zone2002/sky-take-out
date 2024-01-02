@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController("userSetmealController")
 @RequestMapping("/user/setmeal")
+@Cacheable(cacheNames = "setmealCache",key = "#categoryId") //key: setmealCache::100
 @Api(tags = "C端-套餐浏览接口")
 public class SetmealController {
     private final SetmealService setmealService;

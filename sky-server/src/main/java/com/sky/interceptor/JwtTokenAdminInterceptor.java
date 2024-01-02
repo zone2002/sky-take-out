@@ -27,6 +27,8 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor {
         this.jwtProperties = jwtProperties;
     }
 
+
+
     /**
      * 校验jwt
      *
